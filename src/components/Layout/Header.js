@@ -8,7 +8,7 @@ function Header(props) {
         <Fragment>
             <header className={classes.header}>
                 <h1> A react App</h1>
-                <HeaderCartButton>Cart</HeaderCartButton>
+                <HeaderCartButton onButtonClick={props.onCartButtonClick}>Cart</HeaderCartButton>
             </header>
             <div className={classes['main-image']}>
                 <img src={mealsImage} alt="Meals Image"/>

@@ -2,6 +2,10 @@
     text-align: right;
 }
 
+.p {
+    color: red;
+}
+
 .form button {
     font: inherit;
     cursor: pointer;
