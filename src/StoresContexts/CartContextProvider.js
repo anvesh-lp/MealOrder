@@ -33,6 +33,24 @@ const reducerFunction = (state, action) => {
             items: updatedItems,
             totalAmount: totalAmount
         }
+    } else if (action.type === PROPERTIES.DELETE) {
+        // console.log(action.id);
+        let selectedItemIndex = state.items.findIndex(item => item.id === action.id);
+        let selectedItem = state.items[selectedItemIndex];
+        // console.log(selectedItem);
+        let totalAmount = state.totalAmount - selectedItem.price;
+        let updatedItems;
+        if (selectedItem.quantity === 1) {
+            updatedItems = state.items.filter(item => item.id !== action.id);
+        } else {
+            let updatedItem = {...selectedItem, quantity: selectedItem.quantity - 1};
+            updatedItems = [...state.items];
+            updatedItems[selectedItemIndex] = updatedItem;
+        }
+        return {
+            items: updatedItems,
+            totalAmount: totalAmount
+        }
     }
 };
 
@@ -49,6 +67,7 @@ function CartContextProvider(props) {
         dispatcher({type: PROPERTIES.ADD, item: item});
     }
     const DeleteItemFromCart = (id) => {
+        dispatcher({type: PROPERTIES.DELETE, id: id});
 
     }
     const cartContext = {
