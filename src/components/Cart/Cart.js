@@ -10,11 +10,11 @@ function Cart(props) {
 
     const cartIsEmpty = cartContext.items.length > 0;
     const deleteItemHandler = (id) => {
-
+        cartContext.deleteItem(id);
     };
 
-    const addItemHandler = () => {
-
+    const addItemHandler = (item) => {
+        cartContext.addItem({...item, quantity: 1});
     };
 
     const cartItems = <ul className={classes['cart-items']}>{
@@ -22,9 +22,9 @@ function Cart(props) {
             key={item.id}
             price={item.price}
             name={item.name}
-            quantiti={item.quantity}
-            onRemove={deleteItemHandler}
-            onAdd={addItemHandler}
+            quantity={item.quantity}
+            onRemove={deleteItemHandler.bind(null, item.id)}
+            onAdd={addItemHandler.bind(null, item)}
         />)
     }</ul>;
 

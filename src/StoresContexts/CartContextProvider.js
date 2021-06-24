@@ -9,8 +9,26 @@ const PROPERTIES = {
 
 const reducerFunction = (state, action) => {
     if (action.type === PROPERTIES.ADD) {
-        const updatedItems = state.items.concat(action.item);
+        let updatedItems;
         const totalAmount = state.totalAmount + action.item.price * action.item.quantity;
+        //Check if the upcoming item is already present
+        const existingItemIndex = state.items.findIndex(item => item.id === action.item.id);
+        console.log(existingItemIndex);
+        if (existingItemIndex === -1) {
+            //    NO item found(it is a new item
+            updatedItems = state.items.concat(action.item);
+        } else {
+            //    Item is laready present in the list
+            let existingItem = state.items[existingItemIndex];
+            let updatedItem = {
+                ...existingItem,
+                quantity: existingItem.quantity + action.item.quantity
+            };
+            updatedItems = [...state.items];
+
+            updatedItems[existingItemIndex] = updatedItem;
+        }
+
         return {
             items: updatedItems,
             totalAmount: totalAmount
