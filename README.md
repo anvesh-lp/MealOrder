@@ -1,6 +1,20 @@
+# Meal Order Web App
+## Features
+- Developed using React(Scalable)
+- A central place to manage products
+- smooth UI for manageing updation deletion of items in cart
+- Good user experience
+
+## Sample Demo of App 
+
+https://user-images.githubusercontent.com/82794632/123369454-6967f580-d59b-11eb-925d-ce02b8547655.mp4
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 
 ## Available Scripts
 
