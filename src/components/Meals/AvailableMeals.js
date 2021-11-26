@@ -1,37 +1,36 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import classes from "./styles/AvailableMeals.module.css";
 import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
 
-const DUMMY_MEALS = [
-    {
-        id: 'm1',
-        name: 'Sushi',
-        description: 'Finest fish and veggies',
-        price: 22.99,
-    },
-    {
-        id: 'm2',
-        name: 'Schnitzel',
-        description: 'A german specialty!',
-        price: 16.5,
-    },
-    {
-        id: 'm3',
-        name: 'Barbecue Burger',
-        description: 'American, raw, meaty',
-        price: 12.99,
-    },
-    {
-        id: 'm4',
-        name: 'Green Bowl',
-        description: 'Healthy...and green...',
-        price: 18.99,
-    },
-];
-
 function AvailableMeals(props) {
-    const mealsList = DUMMY_MEALS.map(meal =>
+    // const dataFromDb = await fetch("https://react-database-16425-default-rtdb.firebaseio.com/mealsdata")
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch("https://react-database-16425-default-rtdb.firebaseio.com/meals.json")
+            const responseData = await response.json();
+            console.log(response)
+            if (response.status !== 200) {
+                throw Error("Not a good response");
+            }
+            const loadedData = [];
+            for (const responseKey in responseData) {
+                const item = responseData[responseKey]
+                loadedData.push({
+                    id: responseKey,
+                    name: item.name,
+                    description: item.description,
+                    price: item.price
+                });
+            }
+            setData(loadedData)
+        }
+        fetchData();
+    }, [])
+
+    const mealsList = data.map(meal =>
         <MealItem key={meal.id}
                   title={meal.name}
                   id={meal.id}

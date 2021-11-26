@@ -11,7 +11,7 @@ function Header(props) {
                 <HeaderCartButton onButtonClick={props.onCartButtonClick}>Cart</HeaderCartButton>
             </header>
             <div className={classes['main-image']}>
-                <img src={mealsImage} alt="Meals Image"/>
+                <img src={mealsImage} alt="Meals"/>
             </div>
         </Fragment>
     );
