@@ -6,15 +6,19 @@ import MealItem from "./MealItem/MealItem";
 function AvailableMeals(props) {
     // const dataFromDb = await fetch("https://react-database-16425-default-rtdb.firebaseio.com/mealsdata")
     const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [haserror,seterror]=useState(false);
+
 
     useEffect(() => {
+        setIsLoading(true)
         const fetchData = async () => {
             const response = await fetch("https://react-database-16425-default-rtdb.firebaseio.com/meals.json")
             const responseData = await response.json();
-            console.log(response)
             if (response.status !== 200) {
                 throw Error("Not a good response");
             }
+            console.log(response)
             const loadedData = [];
             for (const responseKey in responseData) {
                 const item = responseData[responseKey]
@@ -27,9 +31,29 @@ function AvailableMeals(props) {
             }
             setData(loadedData)
         }
-        fetchData();
-    }, [])
 
+        fetchData().catch(erroor=>{
+            setIsLoading(false);
+            seterror(true);
+        });
+
+        setIsLoading(false)
+    }, []);
+
+    if (isLoading) {
+        console.log("In condition")
+        return (
+            <section className={classes.spinner}><p>Loading......</p></section>
+        );
+    }
+    if (haserror)
+    {
+        return (
+            <section className={classes.mealsError}>
+                <p>error loading the data from the firebase</p>
+            </section>
+        )
+    }
     const mealsList = data.map(meal =>
         <MealItem key={meal.id}
                   title={meal.name}

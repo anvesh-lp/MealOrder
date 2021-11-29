@@ -11,6 +11,35 @@
     padding: 0;
 }
 
+.mealsLoading{
+    text-align: center;
+    color: white;
+    /*width: 90%;*/
+}
+
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+}
+
+.spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    margin-top: -15px;
+    margin-left: -15px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    border-top-color: #8a2b06;
+    animation: spinner .6s linear infinite;
+}
+.mealsError{
+    text-align: center;
+    color: red;
+}
 @keyframes meals-appear {
     from {
         opacity: 0;
@@ -21,4 +50,5 @@
         opacity: 1;
         transform: translateY(0);
     }
+
 }
